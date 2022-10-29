@@ -53,9 +53,7 @@ class Main {
     logger.info("Releasing lock!");
     lock.unlock();
 
-    /*
-    https://stackoverflow.com/questions/4691533/java-wait-for-thread-to-finish/4691544#4691544
-    */
+    // https://stackoverflow.com/questions/4691533/java-wait-for-thread-to-finish/4691544#4691544
     try {
       st.join();
       logger.info("Finished!");
