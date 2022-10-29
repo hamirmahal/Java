@@ -1,41 +1,56 @@
 package locks;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 class Main {
   final static ArrayList<String> dataStructureToBeLocked = new ArrayList<>();
-
-  // https://www.javatpoint.com/java-get-current-date
-  final static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss MM-dd-yyyy");
-  final static String getTime() {
-    return " " + dtf.format(LocalDateTime.now());
-  }
+  // https://stackoverflow.com/a/27559619
+  final static String thisFilesName = new Throwable()
+    .getStackTrace()[0]
+    .toString()
+    .split("\\(")[1]
+    .split(":")[0];
 
   // https://www.baeldung.com/java-concurrent-locks#1-reentrantlock
   final static ReentrantLock lock = new ReentrantLock();
-  final static boolean printingVerbosely = false;
+  final static Logger logger = Logger.getLogger("");
 
+  // https://www.logicbig.com/tutorials/core-java-tutorial/logging/customizing-default-format.html
   public static void main(String args[]) {
-    if (printingVerbosely) {
-      System.out.println("Program started!" + getTime());
+    System.setProperty(
+      "java.util.logging.SimpleFormatter.format",
+      "[%1$tF %1$tT] [%4$-7s] [%2$-25s] %5$s%n"
+    );
+
+    try {
+      FileHandler f = new FileHandler(thisFilesName + ".output.txt", true);
+      f.setFormatter(new SimpleFormatter());
+      logger.addHandler(f);
+    } catch (SecurityException | IOException e1) {
+      System.err.println("Failed to create new FileHandler!");
+      e1.printStackTrace();
+      System.exit(1);
     }
+    // Comment out the `setLevel` line to see all logs.
+    logger.setLevel(Level.WARNING);
+    logger.info("Program started!");
 
     // https://www.javatpoint.com/how-to-create-a-thread-in-java
     SideThread st = new SideThread();
     st.start();
 
     lock.lock();
-    if (printingVerbosely) {
-      System.out.println("\nLock acquired in main method" + getTime());
-    }
+    logger.info("Lock acquired!");
     dataStructureToBeLocked.add("main method!");
-    System.out.println("Data structure after lock in main method " + dataStructureToBeLocked);
-    if (printingVerbosely) {
-      System.out.println("Releasing lock in main method!" + getTime());
-    }
+    logger.info("Data structure after lock aquisition!");
+    logger.warning(dataStructureToBeLocked.toString());
+    logger.info("Releasing lock!");
     lock.unlock();
 
     /*
@@ -43,12 +58,10 @@ class Main {
     */
     try {
       st.join();
-      if (printingVerbosely) {
-        System.out.println("\nFinished!" + getTime());
-        System.out.println("Data structure is " + dataStructureToBeLocked);
-      }
+      logger.info("Finished!");
+      logger.info("Data structure is " + dataStructureToBeLocked);
     } catch (InterruptedException e) {
-      System.err.println("\nFailed to wait for side thread!" + getTime());
+      System.err.println("Failed to wait for side thread!");
       e.printStackTrace();
     }
   }
@@ -56,14 +69,11 @@ class Main {
   static class SideThread extends Thread {
     public void run() {
       lock.lock();
-      if (printingVerbosely) {
-        System.out.println("\nLock acquired in SideThread!" + getTime());
-      }
+      logger.info("Lock acquired!");
       dataStructureToBeLocked.add("SideThread!");
-      if (printingVerbosely) {
-        System.out.println("Data structure after lock in SideThread! " + dataStructureToBeLocked);
-        System.out.println("Releasing lock in SideThread!" + getTime());
-      }
+      logger.info("Data structure after lock!");
+      logger.info(dataStructureToBeLocked.toString());
+      logger.info("Releasing lock!");
       lock.unlock();
     }
   }

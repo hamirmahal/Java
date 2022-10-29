@@ -1,9 +1,9 @@
 ```sh
-chmod +x ./runLocksJava101Times.sh
+chmod +x ./runLocksJava1000Times.sh
 ```
 should give you permission to run the script in the above command.
 
 ```sh
-./runLocksJava101Times.sh
+./runLocksJava1000Times.sh
 ```
-will run `locks.java` 101 times. Check its output!
+will run `locks.java` a bunch of times. Check its output!
