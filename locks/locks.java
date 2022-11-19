@@ -12,10 +12,10 @@ class Main {
   final static ArrayList<String> dataStructureToBeLocked = new ArrayList<>();
   // https://stackoverflow.com/a/27559619
   final static String thisFilesName = new Throwable()
-    .getStackTrace()[0]
-    .toString()
-    .split("\\(")[1]
-    .split(":")[0];
+      .getStackTrace()[0]
+      .toString()
+      .split("\\(")[1]
+      .split(":")[0];
 
   // https://www.baeldung.com/java-concurrent-locks#1-reentrantlock
   final static ReentrantLock lock = new ReentrantLock();
@@ -24,9 +24,8 @@ class Main {
   // https://www.logicbig.com/tutorials/core-java-tutorial/logging/customizing-default-format.html
   public static void main(String args[]) {
     System.setProperty(
-      "java.util.logging.SimpleFormatter.format",
-      "[%1$tF %1$tT] [%4$-7s] [%2$-25s] %5$s%n"
-    );
+        "java.util.logging.SimpleFormatter.format",
+        "[%1$tF %1$tT] [%4$-7s] [%2$-25s] %5$s%n");
 
     try {
       FileHandler f = new FileHandler(thisFilesName + ".output.txt", true);

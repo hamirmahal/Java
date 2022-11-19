@@ -16,9 +16,8 @@ class Main {
   // https://www.logicbig.com/tutorials/core-java-tutorial/logging/customizing-default-format.html
   public static void main(String[] args) {
     System.setProperty(
-      "java.util.logging.SimpleFormatter.format",
-      "[%1$tF %1$tT] [%4$-7s] [%2$-25s] %5$s%n"
-    );
+        "java.util.logging.SimpleFormatter.format",
+        "[%1$tF %1$tT] [%4$-7s] [%2$-25s] %5$s%n");
     final String initialCounterInfo = "counter is " + counter;
 
     LOGGER.setLevel(Level.INFO);
