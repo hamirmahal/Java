@@ -9,17 +9,17 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 class Main {
-  final static ArrayList<String> dataStructureToBeLocked = new ArrayList<>();
+  static final ArrayList<String> dataStructureToBeLocked = new ArrayList<>();
   // https://stackoverflow.com/a/27559619
-  final static String thisFilesName = new Throwable()
+  static final String thisFilesName = new Throwable()
       .getStackTrace()[0]
       .toString()
       .split("\\(")[1]
       .split(":")[0];
 
   // https://www.baeldung.com/java-concurrent-locks#1-reentrantlock
-  final static ReentrantLock lock = new ReentrantLock();
-  final static Logger logger = Logger.getLogger("");
+  static final ReentrantLock lock = new ReentrantLock();
+  static final Logger logger = Logger.getLogger("");
 
   // https://www.logicbig.com/tutorials/core-java-tutorial/logging/customizing-default-format.html
   public static void main(String args[]) {
