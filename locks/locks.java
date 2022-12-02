@@ -58,6 +58,9 @@ class Main {
       logger.info("Finished!");
       logger.info("Data structure is " + dataStructureToBeLocked);
     } catch (InterruptedException e) {
+      // Either re-interrupt this method or rethrow the
+      // "InterruptedException" that can be caught here.sonarlint(java:S2142)
+      Thread.currentThread().interrupt();
       System.err.println("Failed to wait for side thread!");
       e.printStackTrace();
     }
