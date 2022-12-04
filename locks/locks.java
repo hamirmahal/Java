@@ -67,6 +67,7 @@ class Main {
   }
 
   static class SideThread extends Thread {
+    @Override
     public void run() {
       lock.lock();
       logger.info("Lock acquired!");
