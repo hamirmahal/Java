@@ -11,7 +11,7 @@ import java.util.logging.SimpleFormatter;
 class Main {
   static final ArrayList<String> dataStructureToBeLocked = new ArrayList<>();
   // https://stackoverflow.com/a/27559619
-  static final String thisFilesName = new Throwable()
+  static final String NAME_OF_THIS_FILE = new Throwable()
       .getStackTrace()[0]
       .toString()
       .split("\\(")[1]
@@ -28,7 +28,7 @@ class Main {
         "[%1$tF %1$tT] [%4$-7s] [%2$-25s] %5$s%n");
 
     try {
-      FileHandler f = new FileHandler(thisFilesName + ".output.txt", true);
+      FileHandler f = new FileHandler(NAME_OF_THIS_FILE + ".output.txt", true);
       f.setFormatter(new SimpleFormatter());
       logger.addHandler(f);
     } catch (SecurityException | IOException e1) {
