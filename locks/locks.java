@@ -22,7 +22,7 @@ class Main {
   static final Logger logger = Logger.getLogger("");
 
   // https://www.logicbig.com/tutorials/core-java-tutorial/logging/customizing-default-format.html
-  public static void main(String args[]) {
+  public static void main(String[] args) {
     System.setProperty(
         "java.util.logging.SimpleFormatter.format",
         "[%1$tF %1$tT] [%4$-7s] [%2$-25s] %5$s%n");
