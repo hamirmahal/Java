@@ -1,0 +1,2 @@
+# Ignore some files created by creating a `new FileHandler`.
+*.lck
