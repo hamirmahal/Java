@@ -25,7 +25,7 @@ class Main {
   public static void main(String[] args) {
     System.setProperty(
         "java.util.logging.SimpleFormatter.format",
-        "[%1$tF %1$tT] [%4$-7s] [%2$-25s] %5$s%n");
+        "[%1$tF %1$tT] [%4$-7s] [%2$-15s] %5$s%n");
 
     try {
       FileHandler f = new FileHandler(NAME_OF_THIS_FILE + ".output.txt", true);
