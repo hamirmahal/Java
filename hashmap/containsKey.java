@@ -1,7 +1,7 @@
 import java.util.HashMap; // import the HashMap class
 
 class Main {
-  public static void main(String args[]) {
+  public static void main(String[] args) {
     System.out.println("Hello, world!");
     HashMap<String, String> a = new HashMap<>();
     a.put("abc", "a");
